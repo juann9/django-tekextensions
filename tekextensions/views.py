@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.html import escape
 
-from tekextensions.forms import get_model_form
+from tekextensions.forms import get_model_form, add_popup_to_fields
 from tekextensions.utils import normalize_model_name
 
 
@@ -15,6 +15,8 @@ def add_new_model(request, model_name, form=None):
 
     if not form:
         form = get_model_form(normal_model_name)
+
+    form = add_popup_to_fields(normal_model_name, form)
 
     if request.method == 'POST':
         form = form(request.POST)
